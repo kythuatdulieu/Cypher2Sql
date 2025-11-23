@@ -1,6 +1,0 @@
-CREATE TABLE person (pid INTEGER PRIMARY KEY, name TEXT);
-CREATE TABLE company (cid INTEGER PRIMARY KEY, title TEXT);
-CREATE TABLE works_at (wid INTEGER PRIMARY KEY, SRC INTEGER, TGT INTEGER);
-INSERT INTO person(pid, name) VALUES (1,'Ann'), (2,'Bob');
-INSERT INTO company(cid, title) VALUES (10,'ACME');
-INSERT INTO works_at(wid, SRC, TGT) VALUES (100,1,10), (101,2,10);
