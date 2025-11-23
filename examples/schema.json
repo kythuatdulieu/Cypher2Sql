@@ -1,0 +1,9 @@
+{
+  "nodes": [
+    {"label": "Person", "keys": ["pid", "name"]},
+    {"label": "Company", "keys": ["cid", "title"]}
+  ],
+  "edges": [
+    {"label": "WORKS_AT", "src": "Person", "tgt": "Company", "keys": ["wid"]}
+  ]
+}
