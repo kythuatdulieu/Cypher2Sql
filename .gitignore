@@ -1,0 +1,6 @@
+venv/
+ENV/
+env/
+backend/venv/
+backend/env/
+backend/ENV/

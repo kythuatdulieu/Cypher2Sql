@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphiti - Query Equivalence Checker</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.4/ace.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 Graphiti</h1>
+            <p>Graph & Relational Database Query Equivalence Checker</p>
+            <button id="theme-toggle" aria-label="Toggle Dark/Light Mode" title="Toggle Dark/Light Mode">🌙</button>
+
+        </header>
+
+        <nav class="tabs">
+            <button class="tab-button active" data-tab="transpile">Transpile</button>
+            <button class="tab-button" data-tab="verify">Verify Equivalence</button>
+            <button class="tab-button" data-tab="schema">Schema Manager</button>
+            <button class="tab-button" data-tab="comparison">Compare Queries</button>
+        </nav>
+
+        <!-- Transpile Tab -->
+        <section id="transpile-tab" class="tab-content active">
+            <div class="section-title">Cypher to SQL Transpiler</div>
+            <div class="grid-2">
+                <div>
+                    <label>Cypher Query</label>
+                    <div id="cypher-editor" class="editor"></div>
+                    <button class="btn btn-primary" onclick="transpileCypher()">Transpile</button>
+                </div>
+                <div>
+                    <label>Generated SQL</label>
+                    <div id="sql-output" class="editor read-only"></div>
+                    <button class="btn btn-secondary" onclick="copySQLToClipboard()">Copy SQL</button>
+                </div>
+            </div>
+            <div id="transpile-result" class="result-box"></div>
+        </section>
+
+        <!-- Verify Tab -->
+        <section id="verify-tab" class="tab-content">
+            <div class="section-title">Equivalence Verification</div>
+            <div class="grid-2">
+                <div>
+                    <label>Cypher Query</label>
+                    <div id="verify-cypher-editor" class="editor"></div>
+                </div>
+                <div>
+                    <label>SQL Query</label>
+                    <div id="verify-sql-editor" class="editor"></div>
+                </div>
+            </div>
+            <div class="options">
+                <div>
+                    <label for="backend">Verification Backend:</label>
+                    <select id="backend">
+                        <option value="verieql">VeriEQL (Bounded)</option>
+                        <option value="mediator">Mediator (Full)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="timeout">Timeout (seconds):</label>
+                    <input type="number" id="timeout" value="600" min="5" max="3600">
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="verifyEquivalence()">Verify</button>
+            <div id="verify-result" class="result-box"></div>
+        </section>
+
+        <!-- Schema Manager Tab -->
+        <section id="schema-tab" class="tab-content">
+            <div class="section-title">Schema Manager</div>
+            <div class="grid-2">
+                <div>
+                    <label>Graph Schema (JSON)</label>
+                    <div id="graph-schema-editor" class="editor"></div>
+                </div>
+                <div>
+                    <label>Induced Relational Schema</label>
+                    <div id="induced-schema-display" class="schema-display"></div>
+                    <button class="btn btn-primary" onclick="generateInducedSchema()">Generate</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Tab -->
+        <section id="comparison-tab" class="tab-content">
+            <div class="section-title">Query Comparison & Visualization</div>
+            <div class="grid-2">
+                <div>
+                    <label>Query 1 (Cypher)</label>
+                    <div id="compare-cypher-editor" class="editor"></div>
+                </div>
+                <div>
+                    <label>Query 2 (SQL)</label>
+                    <div id="compare-sql-editor" class="editor"></div>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="compareQueries()">Analyze</button>
+            <div class="grid-2">
+                <div id="cypher-visualization" class="visualization"></div>
+                <div id="sql-visualization" class="visualization"></div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Graphiti v1.0 - Research tool for SQL/Cypher equivalence checking</p>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/visualization.js"></script>
+</body>
+</html>
